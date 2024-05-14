@@ -8,7 +8,6 @@ export default function Statistics({ title, stats }) {
     <div>
       <section className="statistics">
         <h2 className="title">{title}</h2>
-
         <ul className="stat-list">{item}</ul>
       </section>
     </div>
