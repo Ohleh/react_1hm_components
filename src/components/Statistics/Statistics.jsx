@@ -1,4 +1,4 @@
-import StatisticsItem from '../StatisticsItem/StatisticsItem';
+import StatisticsItem from './StatisticsItem/StatisticsItem';
 
 export default function Statistics({ title, stats }) {
   const item = stats.map(({ id, label, percentage }) => (
@@ -7,7 +7,7 @@ export default function Statistics({ title, stats }) {
   return (
     <div>
       <section className="statistics">
-        <h2 className="title">{title}</h2>
+        {{ title } && <h2 className="title">{title}</h2>}
         <ul className="stat-list">{item}</ul>
       </section>
     </div>

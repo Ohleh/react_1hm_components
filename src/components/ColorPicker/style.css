@@ -1,0 +1,8 @@
+.marked {
+  color: lightseagreen;
+  cursor: pointer;
+}
+
+.marked__active {
+  color: tomato;
+}

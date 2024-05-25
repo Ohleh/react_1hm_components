@@ -1,3 +1,6 @@
+import { ProfileDiv } from './style';
+import './style.css';
+
 export default function Profile({ username, tag, location, avatar, stats }) {
   return (
     <div>
