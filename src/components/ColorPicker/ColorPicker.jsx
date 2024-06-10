@@ -3,7 +3,7 @@ import './style.css';
 
 class ColorPicker extends Component {
   state = {
-    isMarked: 2,
+    isMarked: 0,
   };
 
   addMarkedClass = index => {
@@ -21,9 +21,11 @@ class ColorPicker extends Component {
   };
 
   render() {
+    const getId = this.props.docs[this.state.isMarked];
     return (
       <div>
         <h3>Choose document:</h3>
+        <p>Document Id: {getId.id}</p>
         <ul>
           {this.props.docs.map(({ id, label, percentage }, index) => {
             return (

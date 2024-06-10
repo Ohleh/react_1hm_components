@@ -4,6 +4,8 @@ import FriendList from './FriendList/FriendList';
 import TransactionHistory from './TransactionHistory/TransactionHistory';
 import Counter from './Counter/Counter';
 import ColorPicker from './ColorPicker/ColorPicker';
+import Form from './Form';
+import FormLogoPass from './FormLogoPass';
 
 export {
   Profile,
@@ -12,4 +14,6 @@ export {
   TransactionHistory,
   Counter,
   ColorPicker,
+  Form,
+  FormLogoPass,
 };

@@ -1,0 +1,7 @@
+[
+  { "id": "id-1", "task": "Learn html/css", "complete": true },
+  { "id": "id-2", "task": "Repeat Redux", "complete": true },
+  { "id": "id-3", "task": "Write React", "complete": true },
+  { "id": "id-4", "task": "Do JS", "complete": false },
+  { "id": "id-5", "task": "Kill node.js", "complete": true }
+]
