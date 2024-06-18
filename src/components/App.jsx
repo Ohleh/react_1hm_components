@@ -37,9 +37,9 @@ export const App = () => {
         styled-components
         stats={user.stats}
       />
-      {/* <Statistics title="Upload stats" stats={data} /> */}
-      {/* <FriendList friends={friends} /> */}
-      {/* <TransactionHistory items={transactions} /> */}
+      <Statistics title="Upload stats" stats={data} />
+      <FriendList friends={friends} />
+      <TransactionHistory items={transactions} />
       <ColorPicker docs={data} />
       <Form />
       <FormLogoPass />
