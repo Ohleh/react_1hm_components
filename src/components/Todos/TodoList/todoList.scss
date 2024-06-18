@@ -1,0 +1,53 @@
+@import 'styles/share.scss';
+
+.todoList__container {
+  display: flex;
+  justify-content: center;
+}
+
+.todoList {
+  outline: 0.5px solid lightgreen;
+  width: 500px;
+  padding-bottom: 10px;
+  margin: 10px;
+}
+
+.todoList__list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.todoList__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  width: 400px;
+
+  &--on {
+    @extend .todoList__item;
+    outline: $checked-colour;
+  }
+}
+
+.todoList__itemSection {
+  display: flex;
+  align-items: center;
+}
+
+.todoList__checkbox {
+  margin-left: 10px;
+}
+
+.todoList__text {
+  margin-left: 10px;
+}
+
+.todoList__button {
+  margin-right: 10px;
+}

@@ -1,23 +1,44 @@
-import React, { Component } from 'react';
+import './todoList.scss';
 
-export default class TodoList extends Component {
-  render() {
-    const { todos, handleDelete } = this.props;
-    return (
-      <div>
-        <ul>
-          {todos.map(({ complete, id, task }) => (
-            <li key={id}>
-              <input type="checkbox" />
+export default function TodoList({ todos, handleDelete, handleCheckbox }) {
+  const makeMark = complete => {
+    let markClass = ['todoList__item'];
+    if (complete) {
+      markClass.push('todoList__item--on');
+    }
+    return markClass.join(' ');
+  };
 
-              <p>{task}</p>
-              <button type="button" onClick={() => handleDelete(id)}>
-                Delete Task
-              </button>
-            </li>
-          ))}
-        </ul>
+  return (
+    <>
+      <div className="todoList__container">
+        <section className="todoList">
+          <ul className="todoList__list">
+            {todos.map(({ complete, id, task }) => (
+              <li key={id} className={makeMark(complete)}>
+                <div className="todoList__itemSection">
+                  <input
+                    type="checkbox"
+                    onChange={() => handleCheckbox(id)}
+                    checked={complete}
+                    className="todoList__checkbox"
+                  />
+
+                  <p className="todoList__text">{task}</p>
+                </div>
+
+                <button
+                  type="button"
+                  className="todoList__button"
+                  onClick={() => handleDelete(id)}
+                >
+                  Delete Task
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
-    );
-  }
+    </>
+  );
 }
