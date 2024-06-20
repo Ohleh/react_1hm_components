@@ -14,7 +14,7 @@ export default function TodoList({ todos, handleDelete, handleCheckbox }) {
       <div className="todoList__container">
         <section className="todoList">
           <ul className="todoList__list">
-            {todos.map(({ complete, id, task }) => (
+            {todos.map(({ complete, id, task, message }) => (
               <li key={id} className={makeMark(complete)}>
                 <div className="todoList__itemSection">
                   <input
@@ -25,6 +25,7 @@ export default function TodoList({ todos, handleDelete, handleCheckbox }) {
                   />
 
                   <p className="todoList__text">{task}</p>
+                  <p className="todoList__text">{message}</p>
                 </div>
 
                 <button

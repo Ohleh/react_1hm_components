@@ -1,7 +1,7 @@
 [
-  { "id": "id-1", "task": "Learn html/css", "complete": true },
-  { "id": "id-2", "task": "Repeat Redux", "complete": true },
-  { "id": "id-3", "task": "Write React", "complete": true },
-  { "id": "id-4", "task": "Do JS", "complete": false },
-  { "id": "id-5", "task": "Kill node.js", "complete": true }
+  { "id": "id-1", "task": "Learn html/css", "complete": true, "message": "do" },
+  { "id": "id-2", "task": "Repeat Redux", "complete": true, "message": "did" },
+  { "id": "id-3", "task": "Write React", "complete": true, "message": "done" },
+  { "id": "id-4", "task": "Do JS", "complete": false, "message": "doom" },
+  { "id": "id-5", "task": "Kill node.js", "complete": true, "message": "dod" }
 ]

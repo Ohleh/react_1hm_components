@@ -6,6 +6,7 @@ import './todos.scss';
 class Todos extends Component {
   state = {
     todos: this.props.todos,
+    filter: '',
   };
   deleteTask = id => {
     this.setState(prevState => ({
@@ -14,14 +15,12 @@ class Todos extends Component {
   };
 
   handleAddTodo = addTodo => {
-    console.log(addTodo);
     this.setState(prevState => ({
       todos: [...prevState.todos, addTodo],
     }));
   };
 
   checkboxComplite = id => {
-    console.log(id);
     this.setState(prevState => ({
       todos: prevState.todos.map(todo => {
         if (todo.id === id) {
@@ -32,9 +31,34 @@ class Todos extends Component {
     }));
   };
 
+  handleChange = e => {
+    const { name, value } = e.currentTarget;
+    this.setState({ [name]: value });
+  };
+
+  getFilteredTodos() {
+    const { todos, filter } = this.state;
+
+    if (!filter) {
+      return todos;
+    }
+
+    const filterNormalise = filter.toLocaleLowerCase();
+    const filteredTodos = todos.filter(({ task, message }) => {
+      const taskNormalise = task.toLocaleLowerCase();
+      const messageNormalise = message.toLocaleLowerCase();
+      const result =
+        taskNormalise.includes(filterNormalise) ||
+        messageNormalise.includes(filterNormalise);
+      return result;
+    });
+    return filteredTodos;
+  }
+
   render() {
-    const { todos } = this.state;
-    const { handleAddTodo, deleteTask, checkboxComplite } = this;
+    const { filter } = this.state;
+    const { handleAddTodo, deleteTask, checkboxComplite, handleChange } = this;
+    const todos = this.getFilteredTodos();
     // const getToDo = todos.filter(todo => todo.complete);
     const getLeftRed = todos.reduce(
       (acc, todo) => (todo.complete ? acc + 1 : acc),
@@ -44,9 +68,20 @@ class Todos extends Component {
     return (
       <div className="todos">
         <h3 className="todos__title">Todos</h3>
-        <p className="todos__counting">total:{todos.length}</p>
-        <p className="todos__counting">Done:{getLeftRed}</p>
-        <FormInput onSubmitt={handleAddTodo} />
+        <span className="todos__counting">total:{todos.length}. </span>
+        <span className="todos__counting">Done:{getLeftRed}</span>
+        <FormInput onSubmitt={handleAddTodo} todos={todos} />
+        <label htmlFor="wq1">
+          Find todo:
+          <input
+            id="wq1"
+            type="text"
+            name="filter"
+            value={filter}
+            onChange={handleChange}
+          ></input>
+        </label>
+
         <TodoList
           todos={todos}
           handleDelete={deleteTask}

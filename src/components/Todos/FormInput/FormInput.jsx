@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import './formInput.scss';
+import { click } from '@testing-library/user-event/dist/click';
 
 export default class FormInput extends Component {
   state = {
@@ -9,6 +10,7 @@ export default class FormInput extends Component {
     message: '',
     complete: false,
     invalidForm: false,
+    dublicate: false,
   };
 
   taskId = nanoid(10);
@@ -17,12 +19,26 @@ export default class FormInput extends Component {
   handleChange = e => {
     e.preventDefault();
     const { name, value } = e.currentTarget;
-    this.setState({ [name]: value, id: nanoid(), invalidForm: false });
+    this.setState({
+      [name]: value,
+      id: nanoid(),
+      invalidForm: false,
+      dublicate: false,
+    });
   };
   handleSubmit = e => {
     e.preventDefault();
-    const validIputs = this.validateForm(this.state);
-    if (validIputs) {
+
+    const validInputs = this.validateForm(this.state);
+    const checkControl = this.checkRepeat(this.state);
+    if (checkControl) {
+      const repeatedTask = checkControl.task;
+      console.log(repeatedTask);
+      return this.setState({ dublicate: repeatedTask });
+      //  return alert(`'you have already duplicate', ${checkControl.task}`);
+    }
+
+    if (validInputs) {
       this.props.onSubmitt(this.state);
       this.setState({ task: '', message: '' });
     } else {
@@ -32,11 +48,20 @@ export default class FormInput extends Component {
 
   validateForm = inpt => {
     const isValid = !!inpt.task && !!inpt.message;
+
     return isValid;
   };
 
+  checkRepeat({ task }) {
+    const { todos } = this.props;
+    // const { task } = this.state;
+    const checkFilter = todos.find(todo => todo.task === task);
+
+    return checkFilter;
+  }
+
   render() {
-    const { message, task, invalidForm } = this.state;
+    const { message, task, invalidForm, dublicate } = this.state;
     const { taskId, messageId } = this;
 
     return (
@@ -63,8 +88,14 @@ export default class FormInput extends Component {
                 id={messageId}
               ></textarea>
             </label>
-            {invalidForm && <span>enter form pls</span>}
-            <button type="submit">Add task</button>
+            {dublicate && <span>you have duplicate {dublicate}</span>}
+            {invalidForm ? (
+              <span>fill form pls</span>
+            ) : (
+              <button type="submit" disabled={dublicate}>
+                Add task
+              </button>
+            )}
           </form>
         </section>
       </>
