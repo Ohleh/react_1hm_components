@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import TodoList from './TodoList';
 import FormInput from './FormInput';
 import './todos.scss';
@@ -7,6 +8,7 @@ class Todos extends Component {
   state = {
     todos: this.props.todos,
     filter: '',
+    dublicate: false,
   };
   deleteTask = id => {
     this.setState(prevState => ({
@@ -15,8 +17,19 @@ class Todos extends Component {
   };
 
   handleAddTodo = addTodo => {
+    const checkDublicate = this.state.todos.find(
+      todo => todo.task === addTodo.task
+    );
+    if (checkDublicate) {
+      return this.setState({ dublicate: checkDublicate.task });
+    }
+
+    if (!addTodo.task || !addTodo.message) {
+      return console.log('fill form');
+    }
     this.setState(prevState => ({
-      todos: [...prevState.todos, addTodo],
+      todos: [addTodo, ...prevState.todos],
+      dublicate: false,
     }));
   };
 
@@ -56,7 +69,7 @@ class Todos extends Component {
   }
 
   render() {
-    const { filter } = this.state;
+    const { filter, dublicate } = this.state;
     const { handleAddTodo, deleteTask, checkboxComplite, handleChange } = this;
     const todos = this.getFilteredTodos();
     // const getToDo = todos.filter(todo => todo.complete);
@@ -70,7 +83,8 @@ class Todos extends Component {
         <h3 className="todos__title">Todos</h3>
         <span className="todos__counting">total:{todos.length}. </span>
         <span className="todos__counting">Done:{getLeftRed}</span>
-        <FormInput onSubmitt={handleAddTodo} todos={todos} />
+        <FormInput onSubmitt={handleAddTodo} dublicate={dublicate} />
+
         <label htmlFor="wq1">
           Find todo:
           <input
